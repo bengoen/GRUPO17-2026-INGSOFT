@@ -27,7 +27,6 @@ services:
   credit_scoring:
     build: 
       context: ./credit-scoring-service
-      network: host
     ports:
       - "5001:5001"
     volumes:
