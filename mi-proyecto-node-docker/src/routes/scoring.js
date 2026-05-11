@@ -143,6 +143,9 @@ function buildFeatures(applicant, formData) {
   const ownCar = formData.own_car === true || formData.own_car === 'true' ? 1 : 0
   const ownRealty = formData.own_realty === true || formData.own_realty === 'true' ? 1 : 0
 
+  const ext = formData.ext_source !== undefined && formData.ext_source !== '' ? Number(formData.ext_source) : null;
+  const hasExt = ext !== null;
+
   return {
     AMT_INCOME_TOTAL: income,
     AMT_CREDIT: credit,
@@ -180,32 +183,32 @@ function buildFeatures(applicant, formData) {
     INCOME_CODE: incCode,
 
     // EXT_SOURCE (en producción vendrían de bureau de crédito — sin OCR quedan null)
-    EXT_SOURCE_1: null,
-    EXT_SOURCE_2: null,
-    EXT_SOURCE_3: null,
-    EXT1_NULL: 1,
-    EXT2_NULL: 1,
-    EXT3_NULL: 1,
-    EXT_NULL_COUNT: 3,
-    EXT_MEAN: null,
-    EXT_STD: null,
-    EXT_MIN: null,
-    EXT_MAX: null,
-    EXT_2_x_3: null,
-    EXT_1_x_2: null,
-    EXT_1_x_3: null,
-    EXT_1_x_2_x_3: null,
-    EXT_2_SQ: null,
-    EXT_3_SQ: null,
-    EXT_1_SQ: null,
-    EXT_2_CB: null,
-    EXT_3_CB: null,
-    EXT_2_x_AGE: null,
-    EXT_3_x_AGE: null,
-    EXT_2_x_INCOME: null,
-    EXT_3_x_CREDIT: null,
-    EXT_MEAN_x_AGE: null,
-    EXT_RANGE: null,
+    EXT_SOURCE_1: ext,
+    EXT_SOURCE_2: ext,
+    EXT_SOURCE_3: ext,
+    EXT1_NULL: hasExt ? 0 : 1,
+    EXT2_NULL: hasExt ? 0 : 1,
+    EXT3_NULL: hasExt ? 0 : 1,
+    EXT_NULL_COUNT: hasExt ? 0 : 3,
+    EXT_MEAN: ext,
+    EXT_STD: hasExt ? 0 : null,
+    EXT_MIN: ext,
+    EXT_MAX: ext,
+    EXT_2_x_3: hasExt ? ext * ext : null,
+    EXT_1_x_2: hasExt ? ext * ext : null,
+    EXT_1_x_3: hasExt ? ext * ext : null,
+    EXT_1_x_2_x_3: hasExt ? ext * ext * ext : null,
+    EXT_2_SQ: hasExt ? ext * ext : null,
+    EXT_3_SQ: hasExt ? ext * ext : null,
+    EXT_1_SQ: hasExt ? ext * ext : null,
+    EXT_2_CB: hasExt ? ext * ext * ext : null,
+    EXT_3_CB: hasExt ? ext * ext * ext : null,
+    EXT_2_x_AGE: hasExt ? ext * (age || 30) : null,
+    EXT_3_x_AGE: hasExt ? ext * (age || 30) : null,
+    EXT_2_x_INCOME: hasExt ? ext * income : null,
+    EXT_3_x_CREDIT: hasExt ? ext * credit : null,
+    EXT_MEAN_x_AGE: hasExt ? ext * (age || 30) : null,
+    EXT_RANGE: hasExt ? 0 : null,
 
     FLAG_EMPLOY_ANOMALY: 0
   }

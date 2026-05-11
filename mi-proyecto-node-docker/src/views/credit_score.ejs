@@ -108,7 +108,7 @@ function CreditScoreApp() {
     cnt_children: '0', cnt_fam_members: '1',
     own_car: false, own_realty: false,
     education_type: 'Secundaria completa', family_status: 'Soltero/a',
-    housing_type: 'Arrendada', income_type: 'Empleado'
+    housing_type: 'Arrendada', income_type: 'Empleado', ext_source: '0.5'
   });
 
   const applicantId = localStorage.getItem('applicantId');
@@ -254,6 +254,19 @@ function CreditScoreApp() {
           sel('Vivienda', 'housing_type', ['Propia', 'Con padres', 'Municipal', 'Arrendada'], 'col-md-3'),
           chk('🚗 Auto propio', 'own_car'),
           chk('🏠 Propiedad', 'own_realty')
+        ),
+        e('h6', { className: 'scoring-section-title mt-4' }, '📊 Calificación Externa (Buró)'),
+        e('div', { className: 'row g-3' },
+          e('div', { className: 'col-md-6' },
+            e('label', { className: 'form-label' }, 'Simulador Historial Crediticio (Equifax/DICOM)'),
+            e('select', { className: 'form-select', value: formData.ext_source, onChange: ev => set('ext_source', ev.target.value) },
+              e('option', { value: '0.9' }, 'Excelente (Puntaje > 800)'),
+              e('option', { value: '0.7' }, 'Bueno (Puntaje 600 - 800)'),
+              e('option', { value: '0.5' }, 'Regular (Puntaje 400 - 600)'),
+              e('option', { value: '0.3' }, 'Malo (Puntaje < 400)'),
+              e('option', { value: '0.1' }, 'Muy Malo (Con morosidades graves)')
+            )
+          )
         ),
         error && e('div', { className: 'alert alert-danger mt-3' }, error),
         e('button', { type: 'submit', className: 'btn btn-primary btn-large', style: { marginTop: 24 } },
