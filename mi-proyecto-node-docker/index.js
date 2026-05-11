@@ -67,6 +67,7 @@ app.use('/api/applicants', require('./src/routes/applicants'))
 app.use('/api', loanStatusRouterFactory(pool));
 app.use('/api/payments', require('./src/routes/payments'));
 app.use('/api/notifications', require('./src/routes/notifications'));
+app.use('/api/scoring', require('./src/routes/scoring'));
 
 //app.use(express.static(join(__dirname, 'src', 'public')))
 app.use(express.static(path.join(__dirname, 'src', 'public')));
@@ -136,3 +137,4 @@ app.get('/my-loans', (req, res) =>
 );
 
 app.get('/notifications', (_req, res) => res.render('notifications'));
+app.get('/credit-evaluation', (_req, res) => res.render('credit_score'));

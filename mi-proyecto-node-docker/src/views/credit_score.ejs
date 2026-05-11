@@ -1,0 +1,267 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<div class="container py-4">
+  <h2 class="mb-2">📊 Evaluación de Riesgo Crediticio</h2>
+  <p class="text-muted mb-4">Evalúe su perfil financiero para conocer su puntaje crediticio y la tasa de interés asignada.</p>
+
+  <div id="credit-score-root"></div>
+</div>
+
+<%- include('partials/footer') %>
+
+<script src="/vendor/react/umd/react.production.min.js"></script>
+<script src="/vendor/react-dom/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+const e = React.createElement;
+
+/* ========== GAUGE SEMICIRCULAR ANIMADO ========== */
+function ScoreGauge({ score, maxScore = 850, minScore = 300 }) {
+  const [animatedScore, setAnimatedScore] = useState(minScore);
+  const radius = 100;
+  const stroke = 18;
+  const cx = 120, cy = 120;
+  // Semicircle: from 180° to 0° (left to right)
+  const startAngle = Math.PI;
+  const endAngle = 0;
+  const arcLength = Math.PI * radius; // half circumference
+
+  useEffect(() => {
+    let frame;
+    const start = performance.now();
+    const duration = 1500;
+    const from = minScore;
+    const to = score;
+    function animate(now) {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+      setAnimatedScore(Math.round(from + (to - from) * eased));
+      if (t < 1) frame = requestAnimationFrame(animate);
+    }
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, [score]);
+
+  const pct = Math.max(0, Math.min(1, (animatedScore - minScore) / (maxScore - minScore)));
+  const dashOffset = arcLength * (1 - pct);
+
+  const getColor = (s) => {
+    if (s >= 700) return '#28a745';
+    if (s >= 600) return '#ffc107';
+    if (s >= 400) return '#fd7e14';
+    return '#dc3545';
+  };
+
+  const color = getColor(animatedScore);
+
+  // Arc path (semicircle, left to right)
+  const x1 = cx - radius, y1 = cy;
+  const x2 = cx + radius, y2 = cy;
+  const arcD = 'M ' + x1 + ' ' + y1 + ' A ' + radius + ' ' + radius + ' 0 0 1 ' + x2 + ' ' + y2;
+
+  return e('div', { className: 'gauge-container', style: { width: 240, height: 150 } },
+    e('svg', { width: 240, height: 150, viewBox: '0 0 240 140' },
+      e('path', { d: arcD, className: 'gauge-bg', transform: 'translate(0, 10)' }),
+      e('path', {
+        d: arcD, className: 'gauge-fill',
+        stroke: color,
+        strokeDasharray: arcLength,
+        strokeDashoffset: dashOffset,
+        transform: 'translate(0, 10)'
+      })
+    ),
+    e('div', { className: 'gauge-score-text' },
+      e('span', { className: 'gauge-score-value', style: { color } }, animatedScore),
+      e('span', { className: 'gauge-score-label' }, 'de ' + maxScore)
+    )
+  );
+}
+
+/* ========== BARRA DE CARGA FINANCIERA ========== */
+function BurdenBar({ burden }) {
+  if (!burden) return null;
+  const pct = Math.min(burden.ratioPercent, 100);
+  const color = pct <= 30 ? '#28a745' : pct <= 40 ? '#ffc107' : '#dc3545';
+  return e('div', { className: 'burden-bar-container' },
+    e('div', { className: 'burden-bar-label' },
+      e('span', null, 'Carga financiera'),
+      e('span', { style: { fontWeight: 700, color } }, burden.ratioPercent + '%')
+    ),
+    e('div', { className: 'burden-bar' },
+      e('div', { className: 'burden-bar-fill', style: { width: pct + '%', backgroundColor: color } }),
+      e('div', { className: 'burden-bar-limit' })
+    )
+  );
+}
+
+/* ========== COMPONENTE PRINCIPAL ========== */
+function CreditScoreApp() {
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    monthly_income: '', amt_credit: '', amt_annuity: '', amt_goods_price: '',
+    total_existing_debt: '0', years_employed: '',
+    cnt_children: '0', cnt_fam_members: '1',
+    own_car: false, own_realty: false,
+    education_type: 'Secundaria completa', family_status: 'Soltero/a',
+    housing_type: 'Arrendada', income_type: 'Empleado'
+  });
+
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  const set = (f, v) => setFormData(prev => ({...prev, [f]: v}));
+
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+    if (!user) { setError('Debe iniciar sesión primero'); return; }
+    setLoading(true); setError(null); setResult(null);
+    try {
+      const res = await fetch('/api/scoring/evaluate', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ applicant_id: user.id, ...formData })
+      });
+      const data = await res.json();
+      if (data.success) setResult(data.data);
+      else setError(data.error || data.detail || 'Error al evaluar');
+    } catch(e) {
+      setError('No se pudo conectar al servicio de scoring.');
+    }
+    setLoading(false);
+  };
+
+  // ---- LOADING ----
+  if (loading) {
+    return e('div', { className: 'scoring-loading' },
+      e('div', { className: 'scoring-spinner' }),
+      e('p', { style: { fontSize: '1.1rem', color: '#6c757d' } }, 'Analizando su perfil crediticio...'),
+      e('p', { className: 'text-muted', style: { fontSize: '0.9rem' } }, 'Esto puede tardar unos segundos')
+    );
+  }
+
+  // ---- RESULTADO: RECHAZO ----
+  if (result && result.rejected_by_filters) {
+    return e('div', { className: 'rejection-card' },
+      e('h3', null, '❌ Solicitud No Aprobada'),
+      e('p', { className: 'text-muted' }, 'Su solicitud no cumple con los requisitos mínimos:'),
+      e('ul', { className: 'rejection-reasons' },
+        result.filter_errors.map((err, i) => e('li', { key: i }, err))
+      ),
+      result.financial_burden && e(BurdenBar, { burden: result.financial_burden }),
+      result.financial_burden && e('p', { className: 'text-muted', style: { fontSize: '0.85rem', marginTop: 8 } },
+        'Cuota máxima permitida con su ingreso: $' + Number(result.financial_burden.maxPayment).toLocaleString('es-CL') + ' CLP'
+      ),
+      e('button', { className: 'btn btn-secondary', style: { marginTop: 20 },
+        onClick: () => setResult(null) }, '← Modificar datos')
+    );
+  }
+
+  // ---- RESULTADO: SCORE ----
+  if (result && !result.rejected_by_filters) {
+    const catClass = result.risk_category === 'LOW' ? 'low' : result.risk_category === 'MEDIUM' ? 'medium' : result.risk_category === 'HIGH' ? 'high' : 'rejected';
+    const catLabel = { LOW: 'Riesgo Bajo', MEDIUM: 'Riesgo Medio', HIGH: 'Riesgo Alto', REJECTED: 'Rechazado' }[result.risk_category];
+    return e('div', { className: 'score-card' },
+      e(ScoreGauge, { score: result.score }),
+      e('span', { className: 'score-category-badge ' + catClass }, catLabel),
+      e('div', { className: 'score-details' },
+        e('div', { className: 'score-detail-row' },
+          e('span', { className: 'label' }, 'Probabilidad de impago'),
+          e('span', { className: 'value' }, (result.probability_of_default * 100).toFixed(1) + '%')
+        ),
+        e('div', { className: 'score-detail-row' },
+          e('span', { className: 'label' }, 'Tasa anual asignada'),
+          e('span', { className: 'value' }, result.annual_rate ? (result.annual_rate * 100) + '%' : 'N/A')
+        ),
+        e('div', { className: 'score-detail-row' },
+          e('span', { className: 'label' }, 'Estado'),
+          e('span', { className: 'value', style: { color: result.approved ? '#28a745' : '#dc3545' } },
+            result.approved ? '✅ Pre-aprobado' : '❌ No aprobado')
+        )
+      ),
+      result.financial_burden && e(BurdenBar, { burden: result.financial_burden }),
+      result.approved && e('div', { className: 'approved-alert' },
+        e('p', { style: { margin: 0 } }, '🎉 ¡Felicidades! Su perfil ha sido pre-aprobado. ',
+          e('a', { href: '/simulator' }, 'Ir al simulador'), ' para solicitar su crédito con tasa personalizada.')
+      ),
+      e('button', { className: 'btn btn-secondary', style: { marginTop: 20 },
+        onClick: () => setResult(null) }, '← Nueva evaluación')
+    );
+  }
+
+  // ---- FORMULARIO ----
+  function field(label, name, type, opts) {
+    return e('div', { className: opts.col || 'col-md-4' },
+      e('label', { className: 'form-label' }, label),
+      e('input', {
+        type: type || 'number', className: 'form-control',
+        required: opts.req !== false, min: opts.min || '0', step: opts.step || undefined,
+        value: formData[name], placeholder: opts.ph || '',
+        onChange: ev => set(name, ev.target.value)
+      }),
+      opts.hint && e('small', { className: 'text-muted' }, opts.hint)
+    );
+  }
+  function sel(label, name, options, col) {
+    return e('div', { className: col || 'col-md-3' },
+      e('label', { className: 'form-label' }, label),
+      e('select', { className: 'form-select', value: formData[name],
+        onChange: ev => set(name, ev.target.value) },
+        options.map(o => e('option', { key: o, value: o }, o))
+      )
+    );
+  }
+  function chk(label, name, col) {
+    return e('div', { className: col || 'col-md-2' },
+      e('div', { className: 'form-check', style: { marginTop: 32 } },
+        e('input', { type: 'checkbox', className: 'form-check-input', id: name,
+          checked: formData[name], onChange: ev => set(name, ev.target.checked) }),
+        e('label', { className: 'form-check-label', htmlFor: name }, label)
+      )
+    );
+  }
+
+  return e('div', { className: 'card shadow', style: { borderRadius: 16 } },
+    e('div', { className: 'card-body', style: { padding: '30px' } },
+      e('h5', { className: 'card-title mb-1' }, 'Complete sus datos para la evaluación'),
+      e('p', { className: 'text-muted mb-3', style: { fontSize: '0.9rem' } },
+        'Todos los datos financieros y personales son necesarios para calcular su puntaje crediticio.'),
+      e('form', { onSubmit: handleSubmit },
+        // Financieros
+        e('h6', { className: 'scoring-section-title' }, '💰 Datos Financieros'),
+        e('div', { className: 'row g-3' },
+          field('Ingreso mensual (CLP)', 'monthly_income', 'number', { ph: 'Ej: 800000' }),
+          field('Monto crédito solicitado (CLP)', 'amt_credit', 'number', { ph: 'Ej: 5000000' }),
+          field('Cuota mensual estimada (CLP)', 'amt_annuity', 'number', { ph: 'Ej: 150000' }),
+          field('Deuda mensual actual (CLP)', 'total_existing_debt', 'number', { req: false, ph: '0', hint: 'Suma de cuotas actuales de otros créditos' }),
+          field('Precio del bien (CLP)', 'amt_goods_price', 'number', { req: false, ph: 'Igual al monto si no aplica' })
+        ),
+        // Laborales
+        e('h6', { className: 'scoring-section-title' }, '💼 Datos Laborales'),
+        e('div', { className: 'row g-3' },
+          field('Años de empleo actual', 'years_employed', 'number', { ph: 'Ej: 3.5', step: '0.5', col: 'col-md-4' }),
+          sel('Tipo de ingreso', 'income_type', ['Empleado', 'Independiente', 'Pensionado', 'Servidor público'], 'col-md-4')
+        ),
+        // Personales
+        e('h6', { className: 'scoring-section-title' }, '👤 Datos Personales'),
+        e('div', { className: 'row g-3' },
+          field('N° de hijos', 'cnt_children', 'number', { req: false, col: 'col-md-2' }),
+          field('Miembros del hogar', 'cnt_fam_members', 'number', { req: false, min: '1', col: 'col-md-2' }),
+          sel('Educación', 'education_type', ['Secundaria incompleta', 'Secundaria completa', 'Superior incompleta', 'Superior completa', 'Postgrado'], 'col-md-3'),
+          sel('Estado civil', 'family_status', ['Casado/a', 'Soltero/a', 'Separado/a', 'Viudo/a'], 'col-md-3'),
+          sel('Vivienda', 'housing_type', ['Propia', 'Con padres', 'Municipal', 'Arrendada'], 'col-md-3'),
+          chk('🚗 Auto propio', 'own_car'),
+          chk('🏠 Propiedad', 'own_realty')
+        ),
+        error && e('div', { className: 'alert alert-danger mt-3' }, error),
+        e('button', { type: 'submit', className: 'btn btn-primary btn-large', style: { marginTop: 24 } },
+          '🔍 Evaluar Riesgo Crediticio')
+      )
+    )
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('credit-score-root')).render(e(CreditScoreApp));
+</script>
