@@ -111,18 +111,18 @@ function CreditScoreApp() {
     housing_type: 'Arrendada', income_type: 'Empleado'
   });
 
-  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  const applicantId = localStorage.getItem('applicantId');
   const set = (f, v) => setFormData(prev => ({...prev, [f]: v}));
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-    if (!user) { setError('Debe iniciar sesión primero'); return; }
+    if (!applicantId) { setError('Debe iniciar sesión primero'); return; }
     setLoading(true); setError(null); setResult(null);
     try {
       const res = await fetch('/api/scoring/evaluate', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ applicant_id: user.id, ...formData })
+        body: JSON.stringify({ applicant_id: applicantId, ...formData })
       });
       const data = await res.json();
       if (data.success) setResult(data.data);
