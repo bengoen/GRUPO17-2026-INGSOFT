@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const pool = require('../../db')
 const bcrypt = require('bcryptjs')
+const { requireAuth } = require('../middleware/auth')
 
 const ensureApplicants = async () => {
   await pool.query(`
@@ -41,7 +42,11 @@ router.post('/', async (req, res) => {
     await ensureApplicants()
 
     // Validaciones básicas
-    const required = ['national_id','first_name','last_name','email','date_of_birth','address']
+    const required = ['national_id','first_name','last_name','email','date_of_birth','address','password']
+    
+    if (String(b.password).length < 6) {
+    return res.status(400).json({ error: 'La password debe tener al menos 6 caracteres' })
+    }
     for (const k of required) if (!b[k]) return res.status(400).json({ error: `Missing field ${k}` })
 
     const dob = new Date(b.date_of_birth)
@@ -49,10 +54,7 @@ router.post('/', async (req, res) => {
     const age = yearsBetween(dob, new Date())
     if (age < 18) return res.status(400).json({ error: 'Debe ser mayor de 18 años' })
 
-    let passwordHash = null
-    if (b.password) {
-      passwordHash = await bcrypt.hash(String(b.password), 10)
-    }
+   const passwordHash = await bcrypt.hash(String(b.password), 10)
 
     const { rows } = await pool.query(
       `INSERT INTO applicants (
@@ -65,7 +67,7 @@ router.post('/', async (req, res) => {
         $8,$9,$10,
         $11,$12,$13,$14,
         $15,$16
-      ) RETURNING *`,
+      ) RETURNING id, national_id, first_name, last_name, email, created_at`,
       [
         b.national_id, b.first_name, b.last_name, b.email, b.phone || null,
         b.date_of_birth, b.nationality || null,
@@ -94,11 +96,20 @@ router.get('/', async (_req, res) => {
 })
 
 // Obtener un solicitante por id (para Mi Cuenta)
-router.get('/:id', async (req, res) => {
+router.get('/:id', requireAuth, async (req, res) => {
   const id = Number(req.params.id)
-  if (!Number.isFinite(id) || id <= 0) return res.status(400).json({ error: 'BAD_ID' })
+
+  if (!Number.isFinite(id) || id <= 0) {
+    return res.status(400).json({ error: 'BAD_ID' })
+  }
+
+  if (id !== Number(req.auth.applicantId)) {
+    return res.status(403).json({ error: 'FORBIDDEN' })
+  }
+
   try {
     await ensureApplicants()
+
     const { rows } = await pool.query(
       `SELECT id, national_id, first_name, last_name, email, phone,
               date_of_birth, nationality, address, income_source, monthly_income, created_at
@@ -106,11 +117,13 @@ router.get('/:id', async (req, res) => {
         WHERE id = $1`,
       [id]
     )
+
     if (!rows.length) return res.status(404).json({ error: 'NOT_FOUND' })
-    res.json(rows[0])
+
+    return res.json(rows[0])
   } catch (err) {
     console.error(err)
-    res.status(500).json({ error: 'DB error' })
+    return res.status(500).json({ error: 'DB error' })
   }
 })
 

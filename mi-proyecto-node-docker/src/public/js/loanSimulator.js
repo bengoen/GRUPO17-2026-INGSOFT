@@ -146,17 +146,17 @@
     async function confirm() {
       setBusy(true); setMessage(null)
       try {
-        let applicantId = null
-        try { applicantId = localStorage.getItem('applicantId') || null } catch(_) {}
         const res = await fetch('/api/loan-requests', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            amount: Number(amount), termMonths: Number(term),
+            amount: Number(amount),
+            termMonths: Number(term),
             monthlyRate: Number(offer.monthlyRate.toFixed(8)),
-            monthlyPayment: Number(offer.firstMonth.total.toFixed(2)),
-            applicantId: applicantId ? Number(applicantId) : null
+            monthlyPayment: Number(offer.firstMonth.total.toFixed(2))
           })
-        })
+      })
         if (res.status === 401) {
           setMessage('Debes registrarte antes de confirmar. Ir a Registro.')
           setTimeout(() => { window.location.href = '/register' }, 1200)

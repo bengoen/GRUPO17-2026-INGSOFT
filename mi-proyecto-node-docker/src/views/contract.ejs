@@ -183,7 +183,7 @@
           const res = await fetch(`/api/loan-requests/${loanId}/contract/start-sign`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }
-          });
+          })
           const data = await res.json().catch(() => ({}));
           if (!res.ok || !data.ok) {
             throw new Error((data && data.error) || 'Error al iniciar la firma');

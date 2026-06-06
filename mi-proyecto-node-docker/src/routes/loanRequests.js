@@ -1,4 +1,5 @@
 const express = require('express')
+const { requireAuth } = require('../middleware/auth')
 const router = express.Router()
 const pool = require('../../db')
 
@@ -19,8 +20,10 @@ const ensureTable = async () => {
   await pool.query(`ALTER TABLE loan_requests ADD COLUMN IF NOT EXISTS applicant_id INTEGER`)
 }
 
-router.post('/', async (req, res) => {
-  const { amount, termMonths, monthlyRate, monthlyPayment, applicantId } = req.body || {}
+router.post('/', requireAuth, async (req, res) => {
+  const { amount, termMonths, monthlyRate, monthlyPayment } = req.body || {}
+  const applicantId = req.auth.applicantId
+  
   if (
     amount == null ||
     termMonths == null ||
@@ -29,16 +32,14 @@ router.post('/', async (req, res) => {
   ) {
     return res.status(400).json({ error: 'Missing fields' })
   }
-  if (applicantId == null) {
-    return res.status(401).json({ error: 'Debe registrarse antes de confirmar la simulación' })
-  }
+ 
   try {
     await ensureTable()
     const { rows } = await pool.query(
       `INSERT INTO loan_requests (amount, term_months, monthly_rate, monthly_payment, applicant_id)
        VALUES ($1, $2, $3, $4, $5)
        RETURNING *`,
-      [amount, termMonths, monthlyRate, monthlyPayment, applicantId || null]
+      [amount, termMonths, monthlyRate, monthlyPayment, applicantId]
     )
     res.status(201).json(rows[0])
   } catch (err) {

@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const { requireAuth } = require('../middleware/auth')
+const { assertLoanOwner } = require('../utils/ownership')
 const pool = require('../../db');
 
 const {
@@ -59,7 +61,7 @@ async function ensureInstallmentPaymentsTable() {
  * GET /api/payments/loans/:id
  * Devuelve el historial de pagos registrados para un pr&eacute;stamo.
  */
-router.get('/loans/:id', async (req, res) => {
+router.get('/loans/:id', requireAuth, async (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (!Number.isFinite(id)) {
     return res.status(400).json({ error: 'BAD_LOAN_ID' });
@@ -67,7 +69,10 @@ router.get('/loans/:id', async (req, res) => {
 
   try {
     await ensureInstallmentPaymentsTable();
-
+    const ownership = await assertLoanOwner(pool, id, req.auth.applicantId)
+    if (!ownership.ok) {
+    return res.status(ownership.status).json({ error: ownership.error })
+    }
     const { rows } = await pool.query(
       `SELECT id, loan_request_id, installment, amount, currency,
               status, transbank_token, transbank_buy_order,
@@ -121,7 +126,7 @@ async function findNextUnpaidInstallment(loanId, loan) {
  * POST /api/payments/loans/:id/installments/next
  * Inicia el pago de la cuota próxima de un préstamo activo usando Webpay Plus.
  */
-router.post('/loans/:id/installments/next', async (req, res) => {
+router.post('/loans/:id/installments/next', requireAuth, async (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (!Number.isFinite(id)) {
     return res.status(400).json({ error: 'BAD_LOAN_ID' });
@@ -129,13 +134,18 @@ router.post('/loans/:id/installments/next', async (req, res) => {
 
   try {
     await ensureInstallmentPaymentsTable();
+    const ownership = await assertLoanOwner(pool, id, req.auth.applicantId)
+    if (!ownership.ok) {
+    return res.status(ownership.status).json({ error: ownership.error })
+    }
 
     const loanResult = await pool.query(
-      `SELECT id, amount, term_months, monthly_rate, monthly_payment, status, created_at
-         FROM loan_requests
-        WHERE id = $1`,
-      [id]
-    );
+  `SELECT id, amount, term_months, monthly_rate, monthly_payment, status, created_at
+     FROM loan_requests
+    WHERE id = $1
+      AND applicant_id = $2`,
+  [id, req.auth.applicantId]
+)
 
     if (!loanResult.rows.length) {
       return res.status(404).json({ error: 'LOAN_NOT_FOUND' });

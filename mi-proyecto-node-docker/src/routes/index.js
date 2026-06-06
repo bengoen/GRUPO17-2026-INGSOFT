@@ -3,6 +3,13 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const {
+  AUTH_COOKIE,
+  getAuthCookieOptions,
+  getClearCookieOptions,
+  signApplicantToken,
+  requireAuth
+} = require('../middleware/auth')
 
 router.get('/', (req, res) => res.render('home', { title: 'Inicio' }))
 router.get('/about', (req, res) => res.render('about', { title: 'About Us' }))
@@ -173,17 +180,13 @@ router.post('/login', async (req, res) => {
         nationalId: null
       })
     }
-    const welcome = `Bienvenido, ${row.first_name || ''}`
-    res.render('login', {
-      title: 'Ingresar',
-      flash: null,
-      welcome,
-      applicantId: row.id,
-      nationalId: row.national_id
-    })
-  } catch (err) {
+   const token = signApplicantToken(row)
+   res.cookie(AUTH_COOKIE, token, getAuthCookieOptions())
+   return res.redirect('/my-loans')
+  }
+  catch (err) {
     console.error(err)
-    res.status(500).render('login', {
+    return res.status(500).render('login', {
       title: 'Ingresar',
       flash: 'Error en el servidor.',
       welcome: null,
@@ -192,5 +195,18 @@ router.post('/login', async (req, res) => {
     })
   }
 })
+router.post('/logout', (req, res) => {
+  res.clearCookie(AUTH_COOKIE, getClearCookieOptions())
+  return res.redirect('/login')
+})
 
-module.exports = router;
+router.get('/api/auth/me', requireAuth, (req, res) => {
+  return res.json({
+    id: req.auth.applicant.id,
+    national_id: req.auth.applicant.national_id,
+    first_name: req.auth.applicant.first_name,
+    last_name: req.auth.applicant.last_name,
+    email: req.auth.applicant.email
+  })
+})
+module.exports = router

@@ -4,13 +4,15 @@
 //import indexRoutes from './src/routes/index.js'
 const express = require('express');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 const pool = require('./db'); // Importar la conexi��n
 const indexRoutes = require('./src/routes/index');
 const loanStatusRouterFactory = require('./src/routes/loanStatus');
 const startNotificationWorker = require('./src/workers/notificationWorker');
 const startCobranzaWorker = require('./src/workers/cobranzaWorker');
 const { buildInstallmentSchedule, summarizeSchedule } = require('./src/utils/installments');
-
+const { requireAuthPage } = require('./src/middleware/auth')
+const { assertLoanOwner } = require('./src/utils/ownership')
 const app = express()
 const stopWorker = startNotificationWorker(pool);
 const stopCobranzaWorker = startCobranzaWorker(pool);
@@ -18,7 +20,7 @@ const stopCobranzaWorker = startCobranzaWorker(pool);
 // Parse JSON and form bodies for API and web forms
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
+app.use(cookieParser());
 // Ruta de prueba que guarda un mensaje en la base de datos
 app.get('/save', async (req, res) => {
   try {
@@ -89,19 +91,30 @@ app.get('/requests/:id', (req, res) => {
 });
 
 // Vista de contrato: revisión y firma digital
-app.get('/requests/:id/contract', async (req, res) => {
+app.get('/requests/:id/contract', requireAuthPage, async (req, res) => {
   const id = Number(req.params.id);
   if (!Number.isFinite(id)) return res.status(400).send('id invǭlido');
 
   try {
+    const ownership = await assertLoanOwner(pool, id, req.auth.applicantId)
+if (!ownership.ok) {
+  if (ownership.status === 403) {
+    return res.status(403).send('No puedes ver el contrato de otro usuario.')
+  }
+  if (ownership.status === 404) {
+    return res.status(404).send('Solicitud no encontrada.')
+  }
+  return res.status(ownership.status).send('Solicitud invalida.')
+}
     const { rows } = await pool.query(
       `SELECT lr.id, lr.amount, lr.term_months, lr.monthly_rate, lr.monthly_payment,
               lr.status, lr.created_at, lr.applicant_id,
               a.first_name, a.last_name, a.national_id, a.email
-         FROM loan_requests lr
+        FROM loan_requests lr
          LEFT JOIN applicants a ON a.id = lr.applicant_id
-        WHERE lr.id = $1`,
-      [id]
+        WHERE lr.id = $1
+         AND lr.applicant_id = $2`,
+      [id, req.auth.applicantId]
     );
     if (!rows.length) return res.status(404).send('Solicitud no encontrada');
 
@@ -133,7 +146,7 @@ app.get('/requests/:id/contract', async (req, res) => {
 
 // Vista de préstamos activos (detalle de cuotas)
 app.get('/my-loans', (req, res) =>
-  res.render('my_loans', { title: 'Mis pr��stamos activos' })
+  res.render('my_loans', { title: 'Mis préstamos activos' })
 );
 
 app.get('/notifications', (_req, res) => res.render('notifications'));

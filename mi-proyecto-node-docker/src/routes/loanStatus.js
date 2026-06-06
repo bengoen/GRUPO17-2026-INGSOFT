@@ -2,14 +2,16 @@
 const express = require('express');
 const { buildInstallmentSchedule, summarizeSchedule } = require('../utils/installments');
 const router = express.Router();
+const { requireAuth } = require('../middleware/auth')
+const { assertLoanOwner } = require('../utils/ownership')
 
 module.exports = (pool) => {
   /**
    * GET /api/loan-requests?applicantId=#
    * Lista solicitudes (mapea term_months -> term)
    */
-  router.get('/loan-requests', async (req, res) => {
-    const applicantId = req.query.applicantId ? Number(req.query.applicantId) : null;
+  router.get('/loan-requests', requireAuth, async (req, res) => {
+  const applicantId = req.auth.applicantId
     try {
       const { rows } = await pool.query(
         `SELECT id, applicant_id, amount,
@@ -17,7 +19,7 @@ module.exports = (pool) => {
                 monthly_rate, monthly_payment,
                 status, updated_at
            FROM loan_requests
-          WHERE ($1::bigint IS NULL OR applicant_id = $1)
+          WHERE applicant_id = $1
           ORDER BY updated_at DESC`,
         [applicantId]
       );
@@ -32,11 +34,15 @@ module.exports = (pool) => {
    * GET /api/loan-requests/:id/status
    * Estado actual + próximas acciones
    */
-  router.get('/loan-requests/:id/status', async (req, res) => {
+  router.get('/loan-requests/:id/status',requireAuth, async (req, res) => {
     const id = parseInt(req.params.id, 10);
     if (!Number.isFinite(id)) return res.status(400).json({ error: 'BAD_REQUEST' });
 
     try {
+      const ownership = await assertLoanOwner(pool, id, req.auth.applicantId)
+      if (!ownership.ok) {
+      return res.status(ownership.status).json({ error: ownership.error })
+      }
       const { rows } = await pool.query(
         `SELECT id, status, updated_at,
            CASE status
@@ -64,11 +70,15 @@ module.exports = (pool) => {
    * GET /api/loan-requests/:id/timeline
    * Línea de tiempo de eventos
    */
-  router.get('/loan-requests/:id/timeline', async (req, res) => {
+  router.get('/loan-requests/:id/timeline', requireAuth, async (req, res) => {
     const id = parseInt(req.params.id, 10);
     if (!Number.isFinite(id)) return res.status(400).json({ error: 'BAD_REQUEST' });
 
     try {
+      const ownership = await assertLoanOwner(pool, id, req.auth.applicantId)
+      if (!ownership.ok) {
+      return res.status(ownership.status).json({ error: ownership.error })
+      }
       const { rows } = await pool.query(
         `SELECT event_type, event_data, created_at
            FROM loan_request_events
@@ -87,11 +97,15 @@ module.exports = (pool) => {
    * GET /api/loan-requests/:id/installments
    * Devuelve cuadro de cuotas y resumen
    */
-  router.get('/loan-requests/:id/installments', async (req, res) => {
+  router.get('/loan-requests/:id/installments', requireAuth, async (req, res) => {
     const id = parseInt(req.params.id, 10);
     if (!Number.isFinite(id)) return res.status(400).json({ error: 'BAD_REQUEST' });
 
     try {
+      const ownership = await assertLoanOwner(pool, id, req.auth.applicantId)
+      if (!ownership.ok) {
+      return res.status(ownership.status).json({ error: ownership.error })
+      }
       const { rows } = await pool.query(
         `SELECT id, amount, term_months, monthly_rate, monthly_payment, status, created_at
            FROM loan_requests
@@ -206,11 +220,15 @@ module.exports = (pool) => {
    * POST /api/loan-requests/:id/contract/review
    * Marca que el cliente revisó el contrato (evento informativo)
    */
-  router.post('/loan-requests/:id/contract/review', async (req, res) => {
+  router.post('/loan-requests/:id/contract/review', requireAuth, async (req, res) => {
     const id = parseInt(req.params.id, 10);
     if (!Number.isFinite(id)) return res.status(400).json({ error: 'BAD_REQUEST' });
 
     try {
+      const ownership = await assertLoanOwner(pool, id, req.auth.applicantId)
+      if (!ownership.ok) {
+      return res.status(ownership.status).json({ error: ownership.error })
+      }
       const { rowCount } = await pool.query(
         'INSERT INTO loan_request_events(loan_request_id, event_type, event_data) VALUES ($1, $2, $3)',
         [id, 'CONTRACT_REVIEWED', JSON.stringify({ source: 'WEB', userAgent: req.headers['user-agent'] || null })]
@@ -227,11 +245,15 @@ module.exports = (pool) => {
    * POST /api/loan-requests/:id/contract/start-sign
    * Simula envío del contrato al sistema de firma digital y pasa a CONTRACT_PENDING
    */
-  router.post('/loan-requests/:id/contract/start-sign', async (req, res) => {
+  router.post('/loan-requests/:id/contract/start-sign', requireAuth, async (req, res) => {
     const id = parseInt(req.params.id, 10);
     if (!Number.isFinite(id)) return res.status(400).json({ error: 'BAD_REQUEST' });
 
     try {
+      const ownership = await assertLoanOwner(pool, id, req.auth.applicantId)
+      if (!ownership.ok) {
+      return res.status(ownership.status).json({ error: ownership.error })
+      }
       await pool.query('BEGIN');
 
       const current = await pool.query(
@@ -280,13 +302,17 @@ module.exports = (pool) => {
    * POST /api/loan-requests/:id/contract/confirm-sign
    * Simula confirmación de firma digital y activa el préstamo (estado ACTIVE)
    */
-  router.post('/loan-requests/:id/contract/confirm-sign', async (req, res) => {
+  router.post('/loan-requests/:id/contract/confirm-sign', requireAuth, async (req, res) => {
     const id = parseInt(req.params.id, 10);
     const code = (req.body && req.body.code ? String(req.body.code).trim() : '') || null;
     if (!Number.isFinite(id)) return res.status(400).json({ error: 'BAD_REQUEST' });
     if (!code) return res.status(400).json({ error: 'CODE_REQUIRED' });
 
     try {
+      const ownership = await assertLoanOwner(pool, id, req.auth.applicantId)
+      if (!ownership.ok) {
+      return res.status(ownership.status).json({ error: ownership.error })
+      }
       await pool.query('BEGIN');
 
       const current = await pool.query(

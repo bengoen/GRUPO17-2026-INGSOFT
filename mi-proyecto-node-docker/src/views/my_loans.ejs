@@ -53,28 +53,22 @@
         }
       }
 
-      function getApplicantIdFromStorage() {
-        try {
-          const raw = localStorage.getItem('applicantId');
-          const n = raw ? Number(raw) : NaN;
-          if (Number.isFinite(n) && n > 0) return n;
-        } catch (_) {}
-        return null;
-      }
+      
 
       async function loadLoansForCurrentUser() {
         if (!listEl) return;
-        const applicantId = getApplicantIdFromStorage();
-
-        if (!applicantId) {
-          listEl.innerHTML = '<p>Debes iniciar sesi&oacute;n para ver tus pr&eacute;stamos activos. Ve a <a href="/login">Mi Cuenta</a>.</p>';
-          return;
-        }
+    
 
         listEl.innerHTML = '<p>Cargando pr&eacute;stamos activos...</p>';
 
         try {
-          const res = await fetch(`/api/loan-requests?applicantId=${applicantId}`);
+          const res = await fetch('/api/loan-requests', {
+          credentials: 'same-origin'
+        });
+        if (res.status === 401) {
+          listEl.innerHTML = '<p>Debes iniciar sesion para ver tus prestamos activos. Ve a <a href="/login">Mi Cuenta</a>.</p>'
+          return
+          }
           if (!res.ok) throw new Error('HTTP ' + res.status);
           const data = await res.json();
           const requests = Array.isArray(data) ? data : [];

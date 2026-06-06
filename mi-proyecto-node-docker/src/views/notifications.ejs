@@ -33,14 +33,7 @@
     (function () {
       let currentApplicantId = null;
 
-      function getApplicantId() {
-        try {
-          const raw = localStorage.getItem('applicantId');
-          const n = raw ? Number(raw) : NaN;
-          if (Number.isFinite(n) && n > 0) return n;
-        } catch (_) {}
-        return null;
-      }
+      
 
       function formatCLP(num) {
         try {
@@ -128,7 +121,6 @@
       }
 
       async function loadNotifications() {
-        currentApplicantId = getApplicantId();
         const listEl = document.getElementById('notif-list');
 
         if (!currentApplicantId) {
@@ -137,7 +129,13 @@
         }
 
         try {
-          const res = await fetch(`/api/notifications?applicantId=${currentApplicantId}`);
+          const res = await fetch('/api/notifications', {
+          credentials: 'same-origin'
+          });
+          if (res.status === 401) {
+          listEl.innerHTML = '<p>Debes iniciar sesion para ver tus notificaciones. Ve a <a href="/login">Mi Cuenta</a>.</p>'
+          return
+          }
           if (!res.ok) throw new Error('HTTP ' + res.status);
           const data = await res.json();
           renderList(data.notifications || []);
@@ -153,9 +151,9 @@
           if (btn) btn.disabled = true;
           await fetch(`/api/notifications/${id}/read`, {
             method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ applicantId: currentApplicantId })
-          });
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json' }
+          })
           await loadNotifications();
         } catch (err) {
           console.error(err);
@@ -166,11 +164,11 @@
       window.markAllRead = async function () {
         if (!currentApplicantId) return;
         try {
-          await fetch(`/api/notifications/read-all`, {
+          await fetch('/api/notifications/read-all', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ applicantId: currentApplicantId })
-          });
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json' }
+          })   
           await loadNotifications();
         } catch (err) {
           console.error(err);
