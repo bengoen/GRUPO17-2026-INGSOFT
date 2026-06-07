@@ -307,6 +307,11 @@ module.exports = (pool) => {
     const code = (req.body && req.body.code ? String(req.body.code).trim() : '') || null;
     if (!Number.isFinite(id)) return res.status(400).json({ error: 'BAD_REQUEST' });
     if (!code) return res.status(400).json({ error: 'CODE_REQUIRED' });
+    // se mantiene el acceso con el predeterminado, pero se hace robusta la confirmación al no validar otro código
+    const EXPECTED_CODE = '123456';
+    if (code !== EXPECTED_CODE) {
+      return res.status(400).json({ error: 'INVALID_SIGNATURE_CODE' });
+    }
 
     try {
       const ownership = await assertLoanOwner(pool, id, req.auth.applicantId)
@@ -316,14 +321,13 @@ module.exports = (pool) => {
       await pool.query('BEGIN');
 
       const current = await pool.query(
-        'SELECT status FROM loan_requests WHERE id = $1',
+        'SELECT status FROM loan_requests WHERE id = $1 FOR UPDATE',
         [id]
       );
       if (!current.rows.length) {
         await pool.query('ROLLBACK');
         return res.status(404).json({ error: 'NOT_FOUND' });
       }
-
       const currentStatus = current.rows[0].status;
       if (currentStatus === 'ACTIVE') {
         await pool.query('ROLLBACK');
@@ -339,7 +343,7 @@ module.exports = (pool) => {
       // Registrar firma exitosa y activación del préstamo
       await pool.query(
         'INSERT INTO loan_request_events(loan_request_id, event_type, event_data) VALUES ($1, $2, $3)',
-        [id, 'CONTRACT_SIGNED', JSON.stringify({ provider: 'MockSign', codeUsed: !!code })]
+        [id, 'CONTRACT_SIGNED', JSON.stringify({ provider: 'MockSign', codeVerified: true })]
       );
       await pool.query(
         'INSERT INTO loan_request_events(loan_request_id, event_type, event_data) VALUES ($1, $2, $3)',
