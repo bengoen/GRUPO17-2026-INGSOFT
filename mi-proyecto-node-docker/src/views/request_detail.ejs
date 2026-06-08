@@ -86,13 +86,7 @@
       };
 
       window.goToActiveLoans = function () {
-        let aid = null;
-        try { aid = localStorage.getItem('applicantId') || null; } catch (_) {}
-        if (aid) {
-          window.location.href = `/my-loans?applicantId=${encodeURIComponent(aid)}`;
-        } else {
-          window.location.href = '/my-loans';
-        }
+        window.location.href = '/my-loans';
       };
     })();
   </script>

@@ -16,9 +16,7 @@
   <main class="wrap">
     <h1>Mis solicitudes</h1>
     <div class="mb-2">
-      <label>Applicant ID:</label>
-      <input id="aid" type="number" min="1" style="width:120px" />
-      <button class="btn btn-sm btn-primary" onclick="loadList()">Buscar</button>
+      <button class="btn btn-sm btn-primary" onclick="loadList()">Recargar lista</button>
     </div>
     <div id="req-list"></div>
   </main>
@@ -59,20 +57,12 @@
     }
 
     async function loadList() {
-      const input = document.getElementById('aid');
-      const params = new URLSearchParams(location.search);
-      const fromQuery = params.get('applicantId');
-      let applicantId = input && input.value ? Number(input.value) : null;
-      if (!applicantId && fromQuery) applicantId = Number(fromQuery);
-      if (!applicantId || !Number.isFinite(applicantId)) {
-        try {
-          const stored = localStorage.getItem('applicantId');
-          if (stored) applicantId = Number(stored);
-        } catch (_) {}
-      }
-      if (!applicantId || !Number.isFinite(applicantId)) applicantId = 1;
-
-      const res = await fetch(`/api/loan-requests?applicantId=${applicantId}`);
+      try {
+        const res = await fetch(`/api/loan-requests`);
+        if (res.status === 401) {
+          document.getElementById('req-list').innerHTML = '<p>Debe iniciar sesión para ver sus solicitudes.</p>';
+          return;
+        }
       const data = await res.json();
       const el = document.getElementById('req-list');
       el.innerHTML = (Array.isArray(data) && data.length ? data : []).map(r => `
@@ -86,7 +76,7 @@
             ? `<br/><a class="btn btn-link p-0" href="/requests/${r.id}/contract">Revisar y firmar contrato</a>`
             : ''}
           ${r.status === 'ACTIVE' || r.status === 'DISBURSED'
-            ? `<br/><a class="btn btn-link p-0" href="/my-loans?applicantId=${encodeURIComponent(applicantId)}">Ver pr&eacute;stamo activo</a>`
+            ? `<br/><a class="btn btn-link p-0" href="/my-loans">Ver pr&eacute;stamo activo</a>`
             : ''}
           <div class="mt-2">
             <button class="btn btn-success btn-sm me-1" onclick="updateStatus(${r.id}, 'APPROVED')">Aceptar</button>
@@ -94,19 +84,13 @@
           </div>
         </div>
       `).join('') || '<p>(Sin solicitudes para este applicant)</p>';
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-      const params = new URLSearchParams(location.search);
-      let applicantId = params.get('applicantId');
-      if (!applicantId) {
-        try {
-          const stored = localStorage.getItem('applicantId');
-          if (stored) applicantId = stored;
-        } catch (_) {}
+      } catch (err) {
+        console.error(err);
+        document.getElementById('req-list').innerHTML = '<p>Error al cargar las solicitudes.</p>';
       }
-      if (!applicantId) applicantId = 1;
-      const input = document.getElementById('aid');
-      if (input) input.value = applicantId;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
       loadList();
     });
   </script>

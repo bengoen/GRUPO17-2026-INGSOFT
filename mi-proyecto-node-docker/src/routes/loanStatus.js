@@ -115,7 +115,41 @@ module.exports = (pool) => {
       if (!rows.length) return res.status(404).json({ error: 'NOT_FOUND' });
 
       const loan = rows[0];
-      const schedule = buildInstallmentSchedule(loan);
+
+      // Verificar si ya tiene ledger
+      const ledgerRes = await pool.query(
+        `SELECT installment_num as installment, due_date as "dueDate", 
+                base_amount as amortization, interest_amount as interest,
+                insurance_amount as insurance, fee_amount as fee,
+                total_payment as "totalPayment", penalty_amount, status as "installmentStatus"
+           FROM installments
+          WHERE loan_request_id = $1
+          ORDER BY installment_num ASC`,
+        [id]
+      );
+
+      let schedule;
+      if (ledgerRes.rows.length > 0) {
+        schedule = ledgerRes.rows.map(r => {
+          // Cálculo simple de mora al vuelo si está vencida y pendiente
+          const now = new Date();
+          const due = new Date(r.dueDate);
+          let penalty = Number(r.penalty_amount);
+          if (r.installmentStatus === 'PENDING' && now > due) {
+            // Mora del 5% del pago total
+            penalty = Number(r.totalPayment) * 0.05;
+          }
+          return {
+            ...r,
+            penalty_amount: penalty,
+            totalPayment: Number(r.totalPayment) + penalty
+          };
+        });
+      } else {
+        // Fallback dinámico si es un préstamo viejo sin ledger
+        schedule = buildInstallmentSchedule(loan);
+      }
+
       const summary = summarizeSchedule(schedule);
 
       // Intentar marcar cuotas ya pagadas (si existe tabla de pagos)
@@ -144,7 +178,7 @@ module.exports = (pool) => {
 
       const enrichedSchedule = schedule.map((row) => ({
         ...row,
-        paid: paidSet.has(row.installment)
+        paid: row.installmentStatus === 'PAID' || paidSet.has(row.installment)
       }));
 
       const now = new Date();
@@ -321,14 +355,15 @@ module.exports = (pool) => {
       await pool.query('BEGIN');
 
       const current = await pool.query(
-        'SELECT status FROM loan_requests WHERE id = $1 FOR UPDATE',
+        'SELECT * FROM loan_requests WHERE id = $1 FOR UPDATE',
         [id]
       );
       if (!current.rows.length) {
         await pool.query('ROLLBACK');
         return res.status(404).json({ error: 'NOT_FOUND' });
       }
-      const currentStatus = current.rows[0].status;
+      const loan = current.rows[0];
+      const currentStatus = loan.status;
       if (currentStatus === 'ACTIVE') {
         await pool.query('ROLLBACK');
         return res.json({ ok: true, alreadyActive: true });
@@ -356,6 +391,27 @@ module.exports = (pool) => {
           WHERE id = $2`,
         ['ACTIVE', id]
       );
+
+      // Generar y persistir las cuotas en el ledger
+      const schedule = buildInstallmentSchedule(loan);
+      for (const row of schedule) {
+        await pool.query(
+          `INSERT INTO installments
+            (loan_request_id, installment_num, due_date, base_amount, interest_amount, insurance_amount, fee_amount, total_payment, penalty_amount, status)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 0, 'PENDING')
+           ON CONFLICT DO NOTHING`,
+          [
+            id,
+            row.installment,
+            row.dueDate,
+            row.amortization,
+            row.interest,
+            row.insurance,
+            row.fee,
+            row.totalPayment
+          ]
+        );
+      }
 
       await pool.query('COMMIT');
       return res.json({

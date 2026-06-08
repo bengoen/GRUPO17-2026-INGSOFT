@@ -92,34 +92,54 @@ router.get('/loans/:id', requireAuth, async (req, res) => {
 
 // Utilidad para determinar la cuota "próxima" impaga
 async function findNextUnpaidInstallment(loanId, loan) {
-  const schedule = buildInstallmentSchedule(loan);
-  if (!schedule.length) return null;
-
-  const paidRes = await pool.query(
-    `SELECT installment
-       FROM loan_installment_payments
+  // 1. Intentar leer del ledger
+  const ledgerRes = await pool.query(
+    `SELECT installment_num as installment, due_date as "dueDate", 
+            total_payment as "totalPayment", penalty_amount, status
+       FROM installments
       WHERE loan_request_id = $1
-        AND status IN ('AUTHORIZED','PAID')`,
+      ORDER BY installment_num ASC`,
     [loanId]
   );
 
-  const paidSet = new Set(
-    paidRes.rows.map((r) => Number(r.installment)).filter((n) => Number.isFinite(n))
-  );
-
+  let candidates = [];
   const now = new Date();
-  const candidates = schedule.filter((row) => !paidSet.has(row.installment));
+
+  if (ledgerRes.rows.length > 0) {
+    candidates = ledgerRes.rows
+      .filter(r => r.status === 'PENDING')
+      .map(r => {
+        const due = new Date(r.dueDate);
+        let penalty = Number(r.penalty_amount);
+        if (now > due) {
+          penalty = Number(r.totalPayment) * 0.05;
+        }
+        return {
+          ...r,
+          totalPayment: Number(r.totalPayment) + penalty
+        };
+      });
+  } else {
+    // 2. Fallback dinámico
+    const schedule = buildInstallmentSchedule(loan);
+    if (!schedule.length) return null;
+
+    const paidRes = await pool.query(
+      `SELECT installment
+         FROM loan_installment_payments
+        WHERE loan_request_id = $1
+          AND status IN ('AUTHORIZED','PAID')`,
+      [loanId]
+    );
+    const paidSet = new Set(paidRes.rows.map(r => Number(r.installment)));
+    candidates = schedule.filter(row => !paidSet.has(row.installment));
+  }
+
   if (!candidates.length) return null;
 
-  candidates.sort(
-    (a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
-  );
+  candidates.sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
 
-  return (
-    candidates.find((r) => new Date(r.dueDate) >= now) ||
-    candidates[0] ||
-    null
-  );
+  return candidates.find(r => new Date(r.dueDate) >= now) || candidates[0] || null;
 }
 
 /**
@@ -268,6 +288,19 @@ async function handleCommit(req, res) {
         WHERE id = $4`,
       [status, JSON.stringify(commitResponse || {}), success, paymentRow.id]
     );
+
+    if (success) {
+      try {
+        await pool.query(
+          `UPDATE installments
+              SET status = 'PAID', paid_at = NOW()
+            WHERE loan_request_id = $1 AND installment_num = $2`,
+          [paymentRow.loan_request_id, paymentRow.installment]
+        );
+      } catch (e) {
+        console.error('[COMMIT /api/payments/commit] Error updating ledger:', e);
+      }
+    }
 
     const viewModel = {
       title: success ? 'Pago exitoso' : 'Pago no completado',

@@ -13,17 +13,7 @@
     .grid input, .grid select, .grid textarea { width:100%; padding:10px 12px; border:1px solid #dee2e6; border-radius:8px }
     .flash { margin:8px 0 16px; color:#0a7c2e }
   </style>
-  <script>
-    // Si el servidor entrega applicantId/nationalId, los persistimos para enlazar futuras simulaciones y "Mi Cuenta"
-    document.addEventListener('DOMContentLoaded', function(){
-      var id = <%- typeof applicantId !== "undefined" && applicantId ? JSON.stringify(applicantId) : "null" %>;
-      var rut = <%- typeof nationalId !== "undefined" && nationalId ? JSON.stringify(nationalId) : "null" %>;
-      try {
-        if (id) localStorage.setItem('applicantId', String(id));
-        if (rut) localStorage.setItem('nationalId', String(rut));
-      } catch(e) {}
-    });
-  </script>
+
 </head>
 <body>
   <%- include('partials/header') %>

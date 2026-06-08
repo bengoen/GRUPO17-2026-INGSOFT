@@ -31,9 +31,7 @@
 
   <script>
     (function () {
-      let currentApplicantId = null;
-
-      
+      // Auth handled by cookies
 
       function formatCLP(num) {
         try {
@@ -123,11 +121,6 @@
       async function loadNotifications() {
         const listEl = document.getElementById('notif-list');
 
-        if (!currentApplicantId) {
-          listEl.innerHTML = '<p>Debes iniciar sesi&oacute;n para ver tus notificaciones. Ve a <a href="/login">Mi Cuenta</a>.</p>';
-          return;
-        }
-
         try {
           const res = await fetch('/api/notifications', {
           credentials: 'same-origin'
@@ -146,7 +139,6 @@
       }
 
       window.markRead = async function (id, btn) {
-        if (!currentApplicantId) return;
         try {
           if (btn) btn.disabled = true;
           await fetch(`/api/notifications/${id}/read`, {
@@ -162,7 +154,6 @@
       };
 
       window.markAllRead = async function () {
-        if (!currentApplicantId) return;
         try {
           await fetch('/api/notifications/read-all', {
             method: 'POST',

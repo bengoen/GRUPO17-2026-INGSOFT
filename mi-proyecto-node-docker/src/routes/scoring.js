@@ -214,15 +214,15 @@ function buildFeatures(applicant, formData) {
   }
 }
 
+const { requireAuth } = require('../middleware/auth')
+
 // ============================================================
 // POST /api/scoring/evaluate
 // Flujo completo: filtros duros → modelo → guardar en DB
 // ============================================================
-router.post('/evaluate', async (req, res) => {
-  const { applicant_id } = req.body || {}
-  if (!applicant_id) return res.status(400).json({ error: 'MISSING_APPLICANT_ID' })
+router.post('/evaluate', requireAuth, async (req, res) => {
+  const applicantId = req.auth.applicantId
 
-  const applicantId = Number(applicant_id)
   if (!Number.isFinite(applicantId)) return res.status(400).json({ error: 'BAD_ID' })
 
   try {
@@ -348,12 +348,11 @@ router.post('/validate-burden', async (req, res) => {
 })
 
 // ============================================================
-// GET /api/scoring/profile/:applicantId
+// GET /api/scoring/profile/me
 // Obtener score guardado del perfil
 // ============================================================
-router.get('/profile/:applicantId', async (req, res) => {
-  const id = Number(req.params.applicantId)
-  if (!Number.isFinite(id)) return res.status(400).json({ error: 'BAD_ID' })
+router.get('/profile/me', requireAuth, async (req, res) => {
+  const id = req.auth.applicantId
 
   try {
     const { rows } = await pool.query(

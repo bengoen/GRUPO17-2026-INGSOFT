@@ -105,10 +105,7 @@
 
     // Cargar perfil de scoring al montar
     React.useEffect(function () {
-      var aid = null
-      try { aid = localStorage.getItem('applicantId') } catch (_) {}
-      if (!aid) { setProfileLoading(false); return }
-      fetch('/api/scoring/profile/' + aid)
+      fetch('/api/scoring/profile/me')
         .then(function (r) { return r.ok ? r.json() : null })
         .then(function (data) {
           if (data && data.success && data.data && data.data.score) {
@@ -124,9 +121,7 @@
 
     // Validar carga financiera al cambiar monto/plazo
     React.useEffect(function () {
-      var aid = null
-      try { aid = localStorage.getItem('applicantId') } catch (_) {}
-      if (!aid || !offer.firstMonth) return
+      if (!offer.firstMonth) return
       fetch('/api/scoring/validate-burden', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

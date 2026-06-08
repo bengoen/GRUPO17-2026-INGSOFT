@@ -82,9 +82,9 @@ process.on('SIGTERM', () => { stopWorker(); stopCobranzaWorker(); });
 process.on('SIGINT', () => { stopWorker(); stopCobranzaWorker(); });
 
 // vistas HU002 / HU003
-app.get('/requests', (req, res) => res.render('requests'));
+app.get('/requests', requireAuthPage, (req, res) => res.render('requests'));
 
-app.get('/requests/:id', (req, res) => {
+app.get('/requests/:id', requireAuthPage, (req, res) => {
   const id = Number(req.params.id);
   if (!Number.isFinite(id)) return res.status(400).send('id invǭlido');
   res.render('request_detail', { id });
@@ -145,9 +145,9 @@ if (!ownership.ok) {
 });
 
 // Vista de préstamos activos (detalle de cuotas)
-app.get('/my-loans', (req, res) =>
+app.get('/my-loans', requireAuthPage, (req, res) =>
   res.render('my_loans', { title: 'Mis préstamos activos' })
 );
 
-app.get('/notifications', (_req, res) => res.render('notifications'));
+app.get('/notifications', requireAuthPage, (_req, res) => res.render('notifications'));
 app.get('/credit-evaluation', (_req, res) => res.render('credit_score'));

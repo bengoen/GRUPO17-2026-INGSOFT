@@ -48,54 +48,35 @@
   <%- include('partials/footer') %>
 
   <script>
-    // Persistimos identidad y mostramos datos del solicitante si hay sesión
+    // Mostrar datos del solicitante si hay sesión activa mediante cookie
     document.addEventListener('DOMContentLoaded', async function () {
-      try {
-        var fromServerId = <%- typeof applicantId !== 'undefined' && applicantId ? JSON.stringify(applicantId) : 'null' %>;
-        var fromServerRut = <%- typeof nationalId !== 'undefined' && nationalId ? JSON.stringify(nationalId) : 'null' %>;
-        if (fromServerId) {
-          localStorage.setItem('applicantId', String(fromServerId));
-        }
-        if (fromServerRut) {
-          localStorage.setItem('nationalId', String(fromServerRut));
-        }
-      } catch (e) {}
-
-      let id = null;
-      try {
-        const stored = localStorage.getItem('applicantId');
-        if (stored) id = Number(stored);
-      } catch (e) {}
-      if (!id || !Number.isFinite(id)) return;
-
       const summaryBox = document.getElementById('account-summary');
       const summaryBody = document.getElementById('account-summary-body');
       const formCol = document.getElementById('login-form-column');
-      if (!summaryBox || !summaryBody) return;
 
       try {
-        const res = await fetch(`/api/applicants/${id}`);
-        if (!res.ok) return;
-        const u = await res.json();
-        summaryBody.innerHTML = `
-          <b>Nombre:</b> ${u.first_name || ''} ${u.last_name || ''}<br/>
-          <b>RUT:</b> ${u.national_id || ''}<br/>
-          <b>Email:</b> ${u.email || ''}<br/>
-          <b>Tel&eacute;fono:</b> ${u.phone || ''}<br/>
-          <b>Direcci&oacute;n:</b> ${u.address || ''}
-        `;
-        summaryBox.style.display = 'block';
-        if (formCol) formCol.style.display = 'none';
+        const res = await fetch('/api/auth/me');
+        if (res.ok) {
+          const u = await res.json();
+          if (summaryBox && summaryBody) {
+            summaryBody.innerHTML = `
+              <b>Nombre:</b> ${u.first_name || ''} ${u.last_name || ''}<br/>
+              <b>RUT:</b> ${u.national_id || ''}<br/>
+              <b>Email:</b> ${u.email || ''}
+            `;
+            summaryBox.style.display = 'block';
+            if (formCol) formCol.style.display = 'none';
+          }
+        }
       } catch (e) {
         console.error(e);
       }
 
       var logoutBtn = document.getElementById('logout-btn');
       if (logoutBtn) {
-        logoutBtn.addEventListener('click', function () {
+        logoutBtn.addEventListener('click', async function () {
           try {
-            localStorage.removeItem('applicantId');
-            localStorage.removeItem('nationalId');
+            await fetch('/logout', { method: 'POST' });
           } catch (e) {}
           window.location.reload();
         });

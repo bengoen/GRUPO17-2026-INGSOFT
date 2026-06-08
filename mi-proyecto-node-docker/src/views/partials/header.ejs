@@ -25,9 +25,7 @@
           (function () {
             function updateBadge() {
               try {
-                var aid = localStorage.getItem('applicantId');
-                if (!aid) return;
-                fetch('/api/notifications?applicantId=' + aid)
+                fetch('/api/notifications')
                   .then(function (r) { return r.ok ? r.json() : null; })
                   .then(function (data) {
                     if (!data) return;
