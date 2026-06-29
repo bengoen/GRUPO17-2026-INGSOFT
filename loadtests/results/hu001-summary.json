@@ -1,0 +1,343 @@
+{
+  "target_label": "03 POST crear solicitud",
+  "threshold_ms": 1000,
+  "method": "Carga escalonada: se mantuvo ramp-up de 10 s y se aumento usuarios hasta observar muestras sobre 1000 ms.",
+  "first_observed_break": {
+    "users": 100,
+    "ramp_seconds": 10,
+    "over_threshold_1000ms": 1,
+    "target_avg_ms": 521.94,
+    "target_max_ms": 1077
+  },
+  "runs": [
+    {
+      "file": "results\\hu001-75u-10s.jtl",
+      "users": 75,
+      "ramp_seconds": 10,
+      "target": {
+        "samples": 75,
+        "avg_ms": 38.89,
+        "min_ms": 4,
+        "max_ms": 321,
+        "p90_ms": 157,
+        "p95_ms": 211,
+        "failures": 0,
+        "over_threshold_1000ms": 0
+      },
+      "by_label": {
+        "01 POST registrar applicant": {
+          "samples": 75,
+          "avg_ms": 98.03,
+          "min_ms": 53,
+          "max_ms": 568,
+          "p90_ms": 250,
+          "p95_ms": 287,
+          "failures": 0,
+          "over_threshold_1000ms": 0
+        },
+        "02 POST login": {
+          "samples": 75,
+          "avg_ms": 72.28,
+          "min_ms": 51,
+          "max_ms": 213,
+          "p90_ms": 154,
+          "p95_ms": 162,
+          "failures": 0,
+          "over_threshold_1000ms": 0
+        },
+        "03 POST crear solicitud": {
+          "samples": 75,
+          "avg_ms": 38.89,
+          "min_ms": 4,
+          "max_ms": 321,
+          "p90_ms": 157,
+          "p95_ms": 211,
+          "failures": 0,
+          "over_threshold_1000ms": 0
+        }
+      }
+    },
+    {
+      "file": "results\\hu001-90u-10s.jtl",
+      "users": 90,
+      "ramp_seconds": 10,
+      "target": {
+        "samples": 90,
+        "avg_ms": 162.6,
+        "min_ms": 4,
+        "max_ms": 430,
+        "p90_ms": 302,
+        "p95_ms": 354,
+        "failures": 0,
+        "over_threshold_1000ms": 0
+      },
+      "by_label": {
+        "01 POST registrar applicant": {
+          "samples": 90,
+          "avg_ms": 235.71,
+          "min_ms": 55,
+          "max_ms": 709,
+          "p90_ms": 402,
+          "p95_ms": 444,
+          "failures": 0,
+          "over_threshold_1000ms": 0
+        },
+        "02 POST login": {
+          "samples": 90,
+          "avg_ms": 184.43,
+          "min_ms": 51,
+          "max_ms": 637,
+          "p90_ms": 355,
+          "p95_ms": 383,
+          "failures": 0,
+          "over_threshold_1000ms": 0
+        },
+        "03 POST crear solicitud": {
+          "samples": 90,
+          "avg_ms": 162.6,
+          "min_ms": 4,
+          "max_ms": 430,
+          "p90_ms": 302,
+          "p95_ms": 354,
+          "failures": 0,
+          "over_threshold_1000ms": 0
+        }
+      }
+    },
+    {
+      "file": "results\\hu001-95u-10s.jtl",
+      "users": 95,
+      "ramp_seconds": 10,
+      "target": {
+        "samples": 95,
+        "avg_ms": 328.61,
+        "min_ms": 6,
+        "max_ms": 667,
+        "p90_ms": 459,
+        "p95_ms": 466,
+        "failures": 0,
+        "over_threshold_1000ms": 0
+      },
+      "by_label": {
+        "01 POST registrar applicant": {
+          "samples": 95,
+          "avg_ms": 451.21,
+          "min_ms": 89,
+          "max_ms": 1229,
+          "p90_ms": 548,
+          "p95_ms": 582,
+          "failures": 0,
+          "over_threshold_1000ms": 1
+        },
+        "02 POST login": {
+          "samples": 95,
+          "avg_ms": 302.24,
+          "min_ms": 106,
+          "max_ms": 460,
+          "p90_ms": 407,
+          "p95_ms": 412,
+          "failures": 0,
+          "over_threshold_1000ms": 0
+        },
+        "03 POST crear solicitud": {
+          "samples": 95,
+          "avg_ms": 328.61,
+          "min_ms": 6,
+          "max_ms": 667,
+          "p90_ms": 459,
+          "p95_ms": 466,
+          "failures": 0,
+          "over_threshold_1000ms": 0
+        }
+      }
+    },
+    {
+      "file": "results\\hu001-100u-10s.jtl",
+      "users": 100,
+      "ramp_seconds": 10,
+      "target": {
+        "samples": 100,
+        "avg_ms": 521.94,
+        "min_ms": 9,
+        "max_ms": 1077,
+        "p90_ms": 708,
+        "p95_ms": 741,
+        "failures": 1,
+        "over_threshold_1000ms": 1
+      },
+      "by_label": {
+        "01 POST registrar applicant": {
+          "samples": 100,
+          "avg_ms": 672.2,
+          "min_ms": 87,
+          "max_ms": 1016,
+          "p90_ms": 838,
+          "p95_ms": 906,
+          "failures": 0,
+          "over_threshold_1000ms": 2
+        },
+        "02 POST login": {
+          "samples": 100,
+          "avg_ms": 534.33,
+          "min_ms": 55,
+          "max_ms": 1033,
+          "p90_ms": 672,
+          "p95_ms": 741,
+          "failures": 0,
+          "over_threshold_1000ms": 2
+        },
+        "03 POST crear solicitud": {
+          "samples": 100,
+          "avg_ms": 521.94,
+          "min_ms": 9,
+          "max_ms": 1077,
+          "p90_ms": 708,
+          "p95_ms": 741,
+          "failures": 1,
+          "over_threshold_1000ms": 1
+        }
+      }
+    },
+    {
+      "file": "results\\hu001-150u-10s.jtl",
+      "users": 150,
+      "ramp_seconds": 10,
+      "target": {
+        "samples": 150,
+        "avg_ms": 2598.12,
+        "min_ms": 62,
+        "max_ms": 4923,
+        "p90_ms": 4314,
+        "p95_ms": 4656,
+        "failures": 130,
+        "over_threshold_1000ms": 130
+      },
+      "by_label": {
+        "01 POST registrar applicant": {
+          "samples": 150,
+          "avg_ms": 2532.44,
+          "min_ms": 503,
+          "max_ms": 4325,
+          "p90_ms": 3981,
+          "p95_ms": 4106,
+          "failures": 0,
+          "over_threshold_1000ms": 133
+        },
+        "02 POST login": {
+          "samples": 150,
+          "avg_ms": 2550.9,
+          "min_ms": 652,
+          "max_ms": 4089,
+          "p90_ms": 3732,
+          "p95_ms": 3807,
+          "failures": 0,
+          "over_threshold_1000ms": 136
+        },
+        "03 POST crear solicitud": {
+          "samples": 150,
+          "avg_ms": 2598.12,
+          "min_ms": 62,
+          "max_ms": 4923,
+          "p90_ms": 4314,
+          "p95_ms": 4656,
+          "failures": 130,
+          "over_threshold_1000ms": 130
+        }
+      }
+    },
+    {
+      "file": "results\\hu001-200u-10s.jtl",
+      "users": 200,
+      "ramp_seconds": 10,
+      "target": {
+        "samples": 200,
+        "avg_ms": 4341.69,
+        "min_ms": 122,
+        "max_ms": 8674,
+        "p90_ms": 7754,
+        "p95_ms": 8077,
+        "failures": 181,
+        "over_threshold_1000ms": 181
+      },
+      "by_label": {
+        "01 POST registrar applicant": {
+          "samples": 200,
+          "avg_ms": 4454.19,
+          "min_ms": 596,
+          "max_ms": 8003,
+          "p90_ms": 7370,
+          "p95_ms": 7706,
+          "failures": 0,
+          "over_threshold_1000ms": 183
+        },
+        "02 POST login": {
+          "samples": 200,
+          "avg_ms": 4644.39,
+          "min_ms": 642,
+          "max_ms": 7938,
+          "p90_ms": 6349,
+          "p95_ms": 7507,
+          "failures": 0,
+          "over_threshold_1000ms": 199
+        },
+        "03 POST crear solicitud": {
+          "samples": 200,
+          "avg_ms": 4341.69,
+          "min_ms": 122,
+          "max_ms": 8674,
+          "p90_ms": 7754,
+          "p95_ms": 8077,
+          "failures": 181,
+          "over_threshold_1000ms": 181
+        }
+      }
+    },
+    {
+      "file": "results\\hu001-250u-10s.jtl",
+      "users": 250,
+      "ramp_seconds": 10,
+      "target": {
+        "samples": 250,
+        "avg_ms": 6014.3,
+        "min_ms": 187,
+        "max_ms": 11433,
+        "p90_ms": 10250,
+        "p95_ms": 10854,
+        "failures": 229,
+        "over_threshold_1000ms": 229
+      },
+      "by_label": {
+        "01 POST registrar applicant": {
+          "samples": 250,
+          "avg_ms": 6334.28,
+          "min_ms": 414,
+          "max_ms": 10669,
+          "p90_ms": 10137,
+          "p95_ms": 10316,
+          "failures": 0,
+          "over_threshold_1000ms": 243
+        },
+        "02 POST login": {
+          "samples": 250,
+          "avg_ms": 6946.61,
+          "min_ms": 1137,
+          "max_ms": 10622,
+          "p90_ms": 9106,
+          "p95_ms": 10084,
+          "failures": 0,
+          "over_threshold_1000ms": 250
+        },
+        "03 POST crear solicitud": {
+          "samples": 250,
+          "avg_ms": 6014.3,
+          "min_ms": 187,
+          "max_ms": 11433,
+          "p90_ms": 10250,
+          "p95_ms": 10854,
+          "failures": 229,
+          "over_threshold_1000ms": 229
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1782693459610,82,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-3,text,true,,426,574,4,4,http://app:3000/api/applicants,79,0,19
+1782693459610,235,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-2,text,true,,426,574,6,6,http://app:3000/api/applicants,235,0,19
+1782693459610,286,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-4,text,true,,426,574,6,6,http://app:3000/api/applicants,286,0,19
+1782693459610,287,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-1,text,true,,426,574,6,6,http://app:3000/api/applicants,287,0,19
+1782693459695,201,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-3,,true,,460,274,6,6,http://app:3000/login,201,0,0
+1782693459846,154,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-2,,true,,460,274,7,7,http://app:3000/login,154,0,0
+1782693459897,160,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-4,,true,,460,274,7,7,http://app:3000/login,160,0,0
+1782693459898,213,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-1,,true,,460,274,8,8,http://app:3000/login,213,0,0
+1782693459899,213,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-3,text,true,,467,495,8,8,http://app:3000/api/loan-requests,213,0,0
+1782693460001,216,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-2,text,true,,467,495,7,7,http://app:3000/api/loan-requests,216,0,0
+1782693459700,568,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-5,text,true,,426,574,7,7,http://app:3000/api/applicants,568,0,0
+1782693460100,168,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-8,text,true,,426,574,7,7,http://app:3000/api/applicants,168,0,0
+1782693460112,157,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-1,text,true,,467,495,7,7,http://app:3000/api/loan-requests,156,0,0
+1782693460058,211,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-4,text,true,,467,495,7,7,http://app:3000/api/loan-requests,211,0,0
+1782693459834,437,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-6,text,true,,426,574,5,5,http://app:3000/api/applicants,437,0,0
+1782693459968,406,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-7,text,true,,426,574,6,6,http://app:3000/api/applicants,406,0,0
+1782693460268,106,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-5,,true,,460,274,6,6,http://app:3000/login,106,0,0
+1782693460268,213,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-8,,true,,460,274,6,6,http://app:3000/login,213,0,0
+1782693460272,210,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-6,,true,,460,274,6,6,http://app:3000/login,210,0,0
+1782693460233,250,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-9,text,true,,426,574,6,6,http://app:3000/api/applicants,250,0,1
+1782693460374,162,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-7,,true,,460,274,7,7,http://app:3000/login,162,0,0
+1782693460483,161,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-9,,true,,460,274,8,8,http://app:3000/login,161,0,0
+1782693460482,162,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-8,text,true,,467,495,8,8,http://app:3000/api/loan-requests,162,0,0
+1782693460367,277,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-10,text,true,,426,574,8,8,http://app:3000/api/applicants,277,0,0
+1782693460375,321,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-5,text,true,,467,495,7,7,http://app:3000/api/loan-requests,321,0,0
+1782693460482,215,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-6,text,true,,467,495,7,7,http://app:3000/api/loan-requests,215,0,0
+1782693460536,163,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-7,text,true,,467,495,5,5,http://app:3000/api/loan-requests,163,0,0
+1782693460498,300,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-11,text,true,,428,576,5,5,http://app:3000/api/applicants,300,0,0
+1782693460645,154,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-10,,true,,460,274,5,5,http://app:3000/login,154,0,0
+1782693460644,156,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-9,text,true,,467,495,5,5,http://app:3000/api/loan-requests,156,0,0
+1782693460631,170,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-12,text,true,,428,576,5,5,http://app:3000/api/applicants,170,0,1
+1782693460799,103,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-11,,true,,460,275,5,5,http://app:3000/login,103,0,0
+1782693460801,151,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-12,,true,,460,275,5,5,http://app:3000/login,151,0,0
+1782693460764,189,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-13,text,true,,428,576,5,5,http://app:3000/api/applicants,189,0,0
+1782693460800,155,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-10,text,true,,467,495,5,5,http://app:3000/api/loan-requests,155,0,0
+1782693460953,102,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-13,,true,,460,275,5,5,http://app:3000/login,102,0,0
+1782693460953,103,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-12,text,true,,467,495,5,5,http://app:3000/api/loan-requests,103,0,0
+1782693460898,158,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-14,text,true,,428,576,5,5,http://app:3000/api/applicants,158,0,1
+1782693460902,154,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-11,text,true,,467,495,5,5,http://app:3000/api/loan-requests,154,0,0
+1782693461056,104,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-14,,true,,460,275,3,3,http://app:3000/login,104,0,0
+1782693461056,104,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-13,text,true,,467,495,3,3,http://app:3000/api/loan-requests,104,0,0
+1782693461032,128,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-15,text,true,,428,576,3,3,http://app:3000/api/applicants,128,0,0
+1782693461160,55,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-15,,true,,460,275,3,3,http://app:3000/login,55,0,0
+1782693461160,105,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-14,text,true,,467,495,3,3,http://app:3000/api/loan-requests,105,0,0
+1782693461163,105,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-16,text,true,,428,576,2,2,http://app:3000/api/applicants,105,0,1
+1782693461215,55,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-15,text,true,,467,495,2,2,http://app:3000/api/loan-requests,55,0,0
+1782693461268,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-16,,true,,460,275,2,2,http://app:3000/login,53,0,0
+1782693461296,79,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-17,text,true,,428,576,2,2,http://app:3000/api/applicants,79,0,1
+1782693461321,55,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-16,text,true,,467,495,2,2,http://app:3000/api/loan-requests,55,0,0
+1782693461375,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-17,,true,,460,275,2,2,http://app:3000/login,53,0,0
+1782693461428,56,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-18,text,true,,428,576,2,2,http://app:3000/api/applicants,56,0,0
+1782693461428,56,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-17,text,true,,467,495,2,2,http://app:3000/api/loan-requests,56,0,0
+1782693461484,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-18,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693461537,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-18,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693461562,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-19,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,0
+1782693461617,54,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-19,,true,,460,275,1,1,http://app:3000/login,54,0,0
+1782693461671,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-19,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693461696,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-20,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693461751,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-20,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693461803,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-20,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693461827,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-21,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,1
+1782693461883,51,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-21,,true,,460,275,1,1,http://app:3000/login,51,0,0
+1782693461935,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-21,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693461960,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-22,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,1
+1782693462015,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-22,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693462068,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-22,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693462094,56,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-23,text,true,,428,576,1,1,http://app:3000/api/applicants,56,0,1
+1782693462150,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-23,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693462203,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-23,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693462226,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-24,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693462281,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-24,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693462333,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-24,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693462360,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-25,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,1
+1782693462415,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-25,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693462468,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-25,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693462493,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-26,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,0
+1782693462548,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-26,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693462601,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-26,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693462624,56,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-27,text,true,,428,576,1,1,http://app:3000/api/applicants,56,0,1
+1782693462680,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-27,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693462733,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-27,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693462759,60,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-28,text,true,,428,576,1,1,http://app:3000/api/applicants,60,0,0
+1782693462820,51,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-28,,true,,460,275,1,1,http://app:3000/login,51,0,0
+1782693462872,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-28,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693462892,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-29,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,0
+1782693462947,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-29,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693463000,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-29,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693463025,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-30,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693463079,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-30,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693463132,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-30,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693463157,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-31,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693463211,71,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-31,,true,,460,275,1,1,http://app:3000/login,71,0,0
+1782693463282,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-31,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693463291,53,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-32,text,true,,428,576,1,1,http://app:3000/api/applicants,53,0,0
+1782693463344,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-32,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693463396,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-32,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693463424,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-33,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,1
+1782693463479,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-33,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693463532,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-33,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693463557,62,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-34,text,true,,428,576,1,1,http://app:3000/api/applicants,62,0,0
+1782693463619,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-34,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693463671,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-34,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693463690,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-35,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,1
+1782693463745,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-35,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693463798,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-35,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693463822,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-36,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,0
+1782693463878,51,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-36,,true,,460,275,1,1,http://app:3000/login,51,0,0
+1782693463930,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-36,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693463957,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-37,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693464011,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-37,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693464065,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-37,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693464088,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-38,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693464142,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-38,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693464195,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-38,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693464222,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-39,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,0
+1782693464277,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-39,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693464329,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-39,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693464355,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-40,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,0
+1782693464410,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-40,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693464463,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-40,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693464487,56,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-41,text,true,,428,576,1,1,http://app:3000/api/applicants,56,0,0
+1782693464544,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-41,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693464597,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-41,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693464621,60,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-42,text,true,,428,576,1,1,http://app:3000/api/applicants,60,0,0
+1782693464681,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-42,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693464734,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-42,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693464755,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-43,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693464810,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-43,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693464865,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-43,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693464886,53,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-44,text,true,,428,576,1,1,http://app:3000/api/applicants,53,0,0
+1782693464940,51,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-44,,true,,460,275,1,1,http://app:3000/login,51,0,0
+1782693464992,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-44,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693465020,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-45,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693465074,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-45,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693465127,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-45,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693465154,56,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-46,text,true,,428,576,1,1,http://app:3000/api/applicants,56,0,0
+1782693465210,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-46,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693465263,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-46,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693465285,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-47,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693465340,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-47,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693465392,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-47,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693465419,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-48,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,0
+1782693465474,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-48,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693465526,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-48,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693465552,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-49,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,1
+1782693465607,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-49,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693465660,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-49,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693465684,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-50,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,0
+1782693465740,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-50,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693465793,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-50,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693465817,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-51,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,0
+1782693465873,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-51,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693465926,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-51,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693465951,57,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-52,text,true,,428,576,1,1,http://app:3000/api/applicants,57,0,2
+1782693466008,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-52,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693466062,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-52,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693466083,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-53,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,0
+1782693466138,64,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-53,,true,,460,275,1,1,http://app:3000/login,64,0,0
+1782693466202,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-53,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693466216,53,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-54,text,true,,428,576,1,1,http://app:3000/api/applicants,53,0,0
+1782693466269,51,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-54,,true,,460,275,1,1,http://app:3000/login,51,0,0
+1782693466321,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-54,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693466350,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-55,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,1
+1782693466405,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-55,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693466458,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-55,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693466483,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-56,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693466537,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-56,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693466590,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-56,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693466616,60,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-57,text,true,,428,576,1,1,http://app:3000/api/applicants,60,0,1
+1782693466677,51,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-57,,true,,460,275,1,1,http://app:3000/login,51,0,0
+1782693466728,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-57,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693466749,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-58,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,1
+1782693466804,51,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-58,,true,,460,275,1,1,http://app:3000/login,51,0,0
+1782693466856,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-58,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693466881,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-59,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693466935,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-59,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693466988,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-59,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693467014,56,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-60,text,true,,428,576,1,1,http://app:3000/api/applicants,56,0,0
+1782693467070,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-60,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693467123,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-60,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693467148,85,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-61,text,true,,428,576,1,1,http://app:3000/api/applicants,85,0,0
+1782693467233,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-61,,true,,460,275,2,2,http://app:3000/login,52,0,0
+1782693467281,58,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-62,text,true,,428,576,2,2,http://app:3000/api/applicants,58,0,0
+1782693467285,56,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-61,text,true,,467,495,2,2,http://app:3000/api/loan-requests,56,0,0
+1782693467339,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-62,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693467392,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-62,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693467413,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-63,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693467467,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-63,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693467520,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-63,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693467548,53,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-64,text,true,,428,576,1,1,http://app:3000/api/applicants,53,0,0
+1782693467602,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-64,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693467655,6,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-64,text,true,,467,495,1,1,http://app:3000/api/loan-requests,6,0,0
+1782693467681,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-65,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,0
+1782693467736,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-65,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693467789,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-65,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693467813,56,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-66,text,true,,428,576,1,1,http://app:3000/api/applicants,56,0,0
+1782693467869,61,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-66,,true,,460,275,1,1,http://app:3000/login,61,0,0
+1782693467930,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-66,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693467946,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-67,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,1
+1782693468001,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-67,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693468053,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-67,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693468078,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-68,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693468132,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-68,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693468184,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-68,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693468211,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-69,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693468265,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-69,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693468317,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-69,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693468344,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-70,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,1
+1782693468399,51,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-70,,true,,460,275,1,1,http://app:3000/login,51,0,0
+1782693468450,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-70,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693468476,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-71,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,1
+1782693468531,53,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-71,,true,,460,275,1,1,http://app:3000/login,53,0,0
+1782693468585,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-71,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693468611,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-72,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693468665,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-72,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693468717,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-72,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693468745,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-73,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,0
+1782693468800,52,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-73,,true,,460,275,1,1,http://app:3000/login,52,0,0
+1782693468852,5,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-73,text,true,,467,495,1,1,http://app:3000/api/loan-requests,5,0,0
+1782693468877,54,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-74,text,true,,428,576,1,1,http://app:3000/api/applicants,54,0,0
+1782693468932,51,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-74,,true,,460,275,1,1,http://app:3000/login,51,0,0
+1782693468984,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-74,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
+1782693469009,55,01 POST registrar applicant,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-75,text,true,,428,576,1,1,http://app:3000/api/applicants,55,0,0
+1782693469064,51,02 POST login,302,Found,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-75,,true,,460,275,1,1,http://app:3000/login,51,0,0
+1782693469116,4,03 POST crear solicitud,201,Created,LT-01 EJECUTADA - HU001 crear solicitud autenticada 1-75,text,true,,467,495,1,1,http://app:3000/api/loan-requests,4,0,0
