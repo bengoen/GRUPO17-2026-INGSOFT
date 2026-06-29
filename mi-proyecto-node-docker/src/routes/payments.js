@@ -62,7 +62,7 @@ async function ensureInstallmentPaymentsTable() {
  * Devuelve el historial de pagos registrados para un pr&eacute;stamo.
  */
 router.get('/loans/:id', requireAuth, async (req, res) => {
-  const id = parseInt(req.params.id, 10);
+  const id = Number.parseInt(req.params.id, 10);
   if (!Number.isFinite(id)) {
     return res.status(400).json({ error: 'BAD_LOAN_ID' });
   }
@@ -147,7 +147,7 @@ async function findNextUnpaidInstallment(loanId, loan) {
  * Inicia el pago de la cuota próxima de un préstamo activo usando Webpay Plus.
  */
 router.post('/loans/:id/installments/next', requireAuth, async (req, res) => {
-  const id = parseInt(req.params.id, 10);
+  const id = Number.parseInt(req.params.id, 10);
   if (!Number.isFinite(id)) {
     return res.status(400).json({ error: 'BAD_LOAN_ID' });
   }

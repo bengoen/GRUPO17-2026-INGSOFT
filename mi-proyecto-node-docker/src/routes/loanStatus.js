@@ -35,7 +35,7 @@ module.exports = (pool) => {
    * Estado actual + próximas acciones
    */
   router.get('/loan-requests/:id/status',requireAuth, async (req, res) => {
-    const id = parseInt(req.params.id, 10);
+    const id = Number.parseInt(req.params.id, 10);
     if (!Number.isFinite(id)) return res.status(400).json({ error: 'BAD_REQUEST' });
 
     try {
@@ -71,7 +71,7 @@ module.exports = (pool) => {
    * Línea de tiempo de eventos
    */
   router.get('/loan-requests/:id/timeline', requireAuth, async (req, res) => {
-    const id = parseInt(req.params.id, 10);
+    const id = Number.parseInt(req.params.id, 10);
     if (!Number.isFinite(id)) return res.status(400).json({ error: 'BAD_REQUEST' });
 
     try {
@@ -98,7 +98,7 @@ module.exports = (pool) => {
    * Devuelve cuadro de cuotas y resumen
    */
   router.get('/loan-requests/:id/installments', requireAuth, async (req, res) => {
-    const id = parseInt(req.params.id, 10);
+    const id = Number.parseInt(req.params.id, 10);
     if (!Number.isFinite(id)) return res.status(400).json({ error: 'BAD_REQUEST' });
 
     try {
@@ -205,7 +205,7 @@ module.exports = (pool) => {
    * Cambia el estado y encola una notificación (mock)
    */
   router.patch('/loan-requests/:id/status', async (req, res) => {
-    const id = parseInt(req.params.id, 10);
+    const id = Number.parseInt(req.params.id, 10);
     const { status } = req.body;
 
     const allowed = [
@@ -255,7 +255,7 @@ module.exports = (pool) => {
    * Marca que el cliente revisó el contrato (evento informativo)
    */
   router.post('/loan-requests/:id/contract/review', requireAuth, async (req, res) => {
-    const id = parseInt(req.params.id, 10);
+    const id = Number.parseInt(req.params.id, 10);
     if (!Number.isFinite(id)) return res.status(400).json({ error: 'BAD_REQUEST' });
 
     try {
@@ -280,7 +280,7 @@ module.exports = (pool) => {
    * Simula envío del contrato al sistema de firma digital y pasa a CONTRACT_PENDING
    */
   router.post('/loan-requests/:id/contract/start-sign', requireAuth, async (req, res) => {
-    const id = parseInt(req.params.id, 10);
+    const id = Number.parseInt(req.params.id, 10);
     if (!Number.isFinite(id)) return res.status(400).json({ error: 'BAD_REQUEST' });
 
     try {
@@ -337,7 +337,7 @@ module.exports = (pool) => {
    * Simula confirmación de firma digital y activa el préstamo (estado ACTIVE)
    */
   router.post('/loan-requests/:id/contract/confirm-sign', requireAuth, async (req, res) => {
-    const id = parseInt(req.params.id, 10);
+    const id = Number.parseInt(req.params.id, 10);
     const code = (req.body && req.body.code ? String(req.body.code).trim() : '') || null;
     if (!Number.isFinite(id)) return res.status(400).json({ error: 'BAD_REQUEST' });
     if (!code) return res.status(400).json({ error: 'CODE_REQUIRED' });
